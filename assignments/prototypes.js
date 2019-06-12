@@ -50,6 +50,7 @@ GameObject.prototype.destroy = function() {                   // prototype metho
   };
 
 function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
   this.healthPoints = attributes.healthPoints;  // number
   // inherit destroy() from GameObject
 }
@@ -61,6 +62,7 @@ CharacterStats.prototype.takeDamage = function() {                // prototype m
   };
 
 function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
   this.team = attributes.team;                  // string
   this.weapons = attibutes.weapons;             // string array
   this.langauge = attributes.language;          // string
