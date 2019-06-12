@@ -64,7 +64,7 @@ CharacterStats.prototype.takeDamage = function() {                // prototype m
 function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
   this.team = attributes.team;                  // string
-  this.weapons = attibutes.weapons;             // string array
+  this.weapons = attributes.weapons;             // string array
   this.langauge = attributes.language;          // string
   // inherit destroy() from GameObject through CharacterStats
   // inherit takeDamage() from CharacterStats
@@ -78,7 +78,7 @@ Humanoid.prototype.greet = function() {                     // prototype method
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -139,7 +139,7 @@ Humanoid.prototype.greet = function() {                     // prototype method
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
