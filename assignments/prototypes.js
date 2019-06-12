@@ -43,29 +43,32 @@ function GameObject(attributes) {
   this.createdAt = attributes.createdAt;        // looks like we need a Date() constructor function
   this.name = attributes.name;                  // string
   this.dimensions = attributes.dimensions       // object {length, width, height}
-  this.destroy = function() {                   // prototype method
+}
+
+GameObject.prototype.destroy = function() {                   // prototype method
     return `${this.name} was removed from the game.`
   };
-}
 
 function CharacterStats(attributes) {
   this.healthPoints = attributes.healthPoints;  // number
-  this.takeDamage = function() {                // prototype method
-    return `${this.name} took damage.`
-  };
   // inherit destroy() from GameObject
 }
+
+CharacterStats.prototype.takeDamage = function() {                // prototype method
+    return `${this.name} took damage.`
+  };
 
 function Humanoid(attributes) {
   this.team = attributes.team;                  // string
   this.weapons = attibutes.weapons;             // string array
   this.langauge = attributes.language;          // string
-  this.greet = function() {                     // prototype method
-    return `${this.name} offers a greeting in ${this.langauge}.`
-  };
   // inherit destroy() from GameObject through CharacterStats
   // inherit takeDamage() from CharacterStats
 }
+
+Humanoid.prototype.greet = function() {                     // prototype method
+    return `${this.name} offers a greeting in ${this.langauge}.`
+  };
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
