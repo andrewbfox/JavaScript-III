@@ -54,6 +54,8 @@ function CharacterStats(attributes) {
   // inherit destroy() from GameObject
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {                // prototype method
     return `${this.name} took damage.`
   };
@@ -65,6 +67,8 @@ function Humanoid(attributes) {
   // inherit destroy() from GameObject through CharacterStats
   // inherit takeDamage() from CharacterStats
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {                     // prototype method
     return `${this.name} offers a greeting in ${this.langauge}.`
