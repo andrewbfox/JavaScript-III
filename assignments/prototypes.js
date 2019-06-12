@@ -65,7 +65,7 @@ function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
   this.team = attributes.team;                  // string
   this.weapons = attributes.weapons;             // string array
-  this.langauge = attributes.language;          // string
+  this.language = attributes.language;          // string
   // inherit destroy() from GameObject through CharacterStats
   // inherit takeDamage() from CharacterStats
 }
@@ -73,7 +73,7 @@ function Humanoid(attributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {                     // prototype method
-    return `${this.name} offers a greeting in ${this.langauge}.`
+    return `${this.name} offers a greeting in ${this.language}.`
   };
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
