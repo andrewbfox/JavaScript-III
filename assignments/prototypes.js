@@ -76,6 +76,24 @@ Humanoid.prototype.greet = function() {                     // prototype method
     return `${this.name} offers a greeting in ${this.language}.`
   };
 
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.villainy = function() {
+  return `${this.name} attacks villainously.`
+}
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.heroism = function() {
+  return `${this.name} attacks heroically.`
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
@@ -129,6 +147,38 @@ Humanoid.prototype.greet = function() {                     // prototype method
     language: 'Elvish',
   });
 
+  const sam = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 5,
+    name: 'Slimy Sam',
+    team: 'Slime Buckets',
+    weapons: [
+      'Poison',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Paladin',
+    team: 'Paladins',
+    weapons: [
+      'Excalibur',
+    ],
+    language: 'Common Tongue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -139,7 +189,8 @@ Humanoid.prototype.greet = function() {                     // prototype method
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(sam.villainy());
+  console.log(paladin.heroism());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
