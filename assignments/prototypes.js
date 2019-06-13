@@ -39,28 +39,28 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// GameObject constructor
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;        // looks like we need a Date() constructor function
   this.name = attributes.name;                  // string
   this.dimensions = attributes.dimensions       // object {length, width, height}
 }
-
 GameObject.prototype.destroy = function() {                   // prototype method
     return `${this.name} was removed from the game.`
   };
 
+// CharacterStats constructor
 function CharacterStats(attributes) {
   GameObject.call(this, attributes);
   this.healthPoints = attributes.healthPoints;  // number
   // inherit destroy() from GameObject
 }
-
 CharacterStats.prototype = Object.create(GameObject.prototype);
-
 CharacterStats.prototype.takeDamage = function() {                // prototype method
     return `${this.name} took damage.`
   };
 
+// Humanoid constructor
 function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
   this.team = attributes.team;                  // string
@@ -69,26 +69,24 @@ function Humanoid(attributes) {
   // inherit destroy() from GameObject through CharacterStats
   // inherit takeDamage() from CharacterStats
 }
-
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-
 Humanoid.prototype.greet = function() {                     // prototype method
     return `${this.name} offers a greeting in ${this.language}.`
   };
 
+// Villain constructor
 function Villain(attributes) {
   Humanoid.call(this, attributes);
 }
-
 Villain.prototype = Object.create(Humanoid.prototype);
-Villain.prototype.villainy = function() {
-  return `${this.name} attacks villainously.`
+Villain.prototype.villainy = function(attributes) {
+  return `${this.name} attacks ${attributes.name} villainously.`
 }
 
+// Hero constructor
 function Hero(attributes) {
   Humanoid.call(this, attributes);
 }
-
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.heroism = function() {
   return `${this.name} attacks heroically.`
@@ -189,7 +187,7 @@ Hero.prototype.heroism = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(sam.villainy());
+  console.log(sam.villainy(paladin));
   console.log(paladin.heroism());
 
   // Stretch task: 
