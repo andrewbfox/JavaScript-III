@@ -39,9 +39,62 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// GameObject constructor
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;        // looks like we need a Date() constructor function
+  this.name = attributes.name;                  // string
+  this.dimensions = attributes.dimensions       // object {length, width, height}
+}
+GameObject.prototype.destroy = function() {                   // prototype method
+    return `${this.name} was removed from the game.`
+  };
+
+// CharacterStats constructor
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
+  this.healthPoints = attributes.healthPoints;  // number
+  // inherit destroy() from GameObject
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {                // prototype method
+    return `${this.name} took damage.`
+  };
+
+// Humanoid constructor
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
+  this.team = attributes.team;                  // string
+  this.weapons = attributes.weapons;             // string array
+  this.language = attributes.language;          // string
+  // inherit destroy() from GameObject through CharacterStats
+  // inherit takeDamage() from CharacterStats
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {                     // prototype method
+    return `${this.name} offers a greeting in ${this.language}.`
+  };
+
+// Villain constructor
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.villainy = function(attributes) {
+  return `${this.name} attacks ${attributes.name} villainously.`
+}
+
+// Hero constructor
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.heroism = function() {
+  return `${this.name} attacks heroically.`
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +145,38 @@
     language: 'Elvish',
   });
 
+  const sam = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 5,
+    name: 'Slimy Sam',
+    team: 'Slime Buckets',
+    weapons: [
+      'Poison',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Paladin',
+    team: 'Paladins',
+    weapons: [
+      'Excalibur',
+    ],
+    language: 'Common Tongue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +187,8 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(sam.villainy(paladin));
+  console.log(paladin.heroism());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
